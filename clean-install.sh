@@ -1,9 +1,6 @@
-#!/usr/bin/bash
-# Settings
-GITHUB_USER="fredefox"
-SHELL_SETTINGS_URL="https://gist.github.com/$GITHUB_USER/9352326/"
-SHELL_SETTINGS_FILE="$HOME/.zshenv"
-PACKAGE_LIST="packages.list"
+#!/bin/bash
+# Get settings
+source settings
 
 # Return to cwd on exit
 CWD=$(pwd)
