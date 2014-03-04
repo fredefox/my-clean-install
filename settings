@@ -1,4 +1,9 @@
 # Settings
+source local_settings
+
+# These are sample values
+# (That happen to be the ones I use)
+# change as needed.
 GITHUB_USER="fredefox"
 SHELL_SETTINGS_URL="https://gist.github.com/$GITHUB_USER/9352326/"
 SHELL_SETTINGS_FILE="$HOME/.zshenv"
