@@ -22,11 +22,17 @@ cd $HOME/workspace
 TMP=$(mktemp /tmp/repos-XXX)
 curl https://api.github.com/users/fredefox/repos -o $TMP -s
 
-# Clone all repos
-for REPO in $(cat $TMP | jq ".[].git_url")
+# Clone all repos from users repo's
+for REPO in $(cat $TMP | jq '.[4,5].git_url' |
+	# Remove leading quote
+	# Change protocol to https
+	# Add user-name
+	# TODO: Figure out how to stay on the git-protocol
+	# while still being able to supply username
+	sed "s/^\"git:\/\//https:\/\/$GITHUB_USER@/g" |
+	# Remove trailing quote
+	sed "s/\"$//g")
 do
-	# FIXME: This is not currently working
-	# git clone $REPO
-	echo $REPO
+	git clone $REPO
 done
 rm $TMP
