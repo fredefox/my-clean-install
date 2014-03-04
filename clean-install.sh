@@ -5,8 +5,10 @@ source settings
 # Return to cwd on exit
 CWD=$(pwd)
 
-# Debian packages to install
-cat $PACKAGE_LIST | xargs -d '\n' sudo apt-get install
+# Select packages
+dpkg --set-selections < $PACKAGE_LIST
+# Install that
+apt-get dselect-upgrade
 
 # Get shell configuration-file
 curl SHELL_SETTINGS_URL -o $SHELL_SETTINGS_FILE

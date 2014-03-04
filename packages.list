@@ -1,7 +1,7 @@
-curl
-zsh
-vlc
-openjdk-7-jdk
-transmission
-texlive-full
-jq
+curl			install
+zsh				install
+vlc				install
+openjdk-7-jdk	install
+transmission	install
+texlive-full	install
+jq				install
