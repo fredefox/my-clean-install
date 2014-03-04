@@ -5,16 +5,37 @@ source settings
 # Return to cwd on exit
 CWD=$(pwd)
 
+# Allow aliasing
+shopt -s expand_aliases
+
+if [ ! $VERBOSE ]
+then
+	alias echo=false
+fi
+
+if [ $NO_PROMPT ]
+then
+	alias read=true
+	alias apt-get="apt-get -y"
+fi
+
 # Check if shell settings file already exists
+touch test
+SHELL_SETTINGS_FILE=test
 if [ -f $SHELL_SETTINGS_FILE ]
 then
 	echo "$SHELL_SETTINGS_FILE already exists"
+	echo "Continuing will make a backup and replace"
+	echo "current settings with these values."
 	read -p "Do you want to continue [y/n]? " -n 1 -r
 	echo
 	if [[ ! $REPLY =~ ^[Yy]$ ]]
 	then
 	    exit 0
 	fi
+	BACKUP="$SHELL_SETTINGS_FILE-$(date +"%s").bak"
+	mv $SHELL_SETTINGS_FILE $BACKUP
+	echo "Backup placed in $BACKUP"
 fi
 
 # Select packages
