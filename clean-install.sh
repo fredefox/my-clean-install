@@ -5,6 +5,18 @@ source settings
 # Return to cwd on exit
 CWD=$(pwd)
 
+# Check if shell settings file already exists
+if [ -f $SHELL_SETTINGS_FILE ]
+then
+	echo "$SHELL_SETTINGS_FILE already exists"
+	read -p "Do you want to continue [y/n]? " -n 1 -r
+	echo
+	if [[ ! $REPLY =~ ^[Yy]$ ]]
+	then
+	    exit 0
+	fi
+fi
+
 # Select packages
 dpkg --set-selections < $PACKAGE_LIST
 # Install that
