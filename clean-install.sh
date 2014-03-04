@@ -1,20 +1,32 @@
 #!/bin/bash
 # Get settings
 source settings
+if [ -f local_settings ]
+then
+	# Overwrite settings with local settings
+	source local_settings
+fi
 
 # Return to cwd on exit
-CWD=$(pwd)
+START_DIRECTORY=$(pwd)
 
 # Allow aliasing
 shopt -s expand_aliases
 
+if [ $STRICT ]
+then
+	# Exit on any error
+	set -e
+fi
 if [ ! $VERBOSE ]
 then
+	# Suppress all output
 	alias echo=false
 fi
 
 if [ $NO_PROMPT ]
 then
+	# Accept everything
 	alias read=true
 	alias apt-get="apt-get -y"
 fi
@@ -40,7 +52,7 @@ fi
 
 # Select packages
 dpkg --set-selections < $PACKAGE_LIST
-# Install that
+# Install them
 apt-get dselect-upgrade
 
 # Get shell configuration-file
@@ -68,3 +80,5 @@ do
 	git clone $REPO
 done
 rm $TMP
+
+cd $START_DIRECTORY

@@ -1,6 +1,4 @@
 # Settings
-source local_settings
-
 # These are sample values
 # (That happen to be the ones I use)
 # change as needed.
@@ -10,3 +8,4 @@ SHELL_SETTINGS_FILE="$HOME/.zshenv"
 PACKAGE_LIST="packages.list"
 VERBOSE=true
 NO_PROMPT=false
+STRICT=false
